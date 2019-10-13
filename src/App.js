@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import { BrowserView, MobileView } from 'react-device-detect'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import './App.css'
+
+import Nav from './Nav/Nav'
+import Page from './Page/Page'
+import Home from './Page/Home/Home'
+import About from './Page/About/About'
+import Projects from './Page/Projects/Projects'
+import { statement } from '@babel/template'
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <div className="container">
+        <BrowserView>
+          <div className="top"><Nav /></div>
+        </BrowserView>
+
+        <MobileView>
+          <div className="bottom"><Nav /></div>
+        </MobileView>
+
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/projects">
+            <Projects />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+export default App
