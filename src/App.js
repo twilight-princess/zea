@@ -1,42 +1,39 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { BrowserView, MobileView } from 'react-device-detect'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { Provider } from "react-redux";
+import store from "./redux";
+
 import './App.css'
 
 import Nav from './Nav/Nav'
-import Page from './Page/Page'
 import Home from './Page/Home/Home'
 import About from './Page/About/About'
 import Projects from './Page/Projects/Projects'
-import { statement } from '@babel/template'
 
 function App() {
 
   return (
     <Router>
-      <div className="container">
-        <BrowserView>
-          <div className="top"><Nav /></div>
-        </BrowserView>
+      <Provider store={store} >
+        <div className="container">
+          <BrowserView viewClassName="top">
+            <Nav />
+          </BrowserView>
 
-        <MobileView>
-          <div className="bottom"><Nav /></div>
-        </MobileView>
+          <MobileView viewClassName="bottom">
+            <Nav />
+          </MobileView>
 
-        {/* A <Switch> looks through its children <Route>s and
+          {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/projects">
-            <Projects />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
+          <Switch>
+            <Route path="/about" exact component={About} />
+            <Route path="/projects" exact component={Projects} />
+            <Route path="/" exact component={Home} />
+          </Switch>
+        </div>
+      </Provider>
     </Router>
   )
 }

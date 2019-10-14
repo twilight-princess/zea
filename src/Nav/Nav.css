@@ -2,12 +2,25 @@ ul {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  margin: 0;
 }
 
 a {
   color: white;
+  font-size: calc(8px + 1.5vmin);
 }
 
-li {
+.Nav > .nav > li {
+  line-height: 75px;
   list-style: none;
+}
+
+.Nav {
+  z-index: 3;
+  position: relative;
+  background-color: #282c34;
+  opacity: .95;
+  margin: 0;
+  height: 75px;
+  border: 1px solid black;
 }
