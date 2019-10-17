@@ -6,9 +6,32 @@
   color: white;
 }
 
-img, iframe {
+.images, iframe {
   width: 50vw;
 }
+
+.images {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.image-container {
+  width: 1000px;
+  position: absolute;
+  left: 50%;
+  margin-left: -500px;
+  margin-top: -75px;
+  height: inherit;
+}
+
+#about-img {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+  object-fit: cover;
+  height: inherit;
+}
+
 
 
 .About > iframe {

@@ -1,0 +1,14 @@
+.Contact > img {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  z-index: 0;
+}
+
+.Contact > form {
+  width: 50%;
+  margin: auto;
+  position: fixed;
+  z-index: 1;
+  display: block;
+}

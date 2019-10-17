@@ -22,6 +22,8 @@ const reducer = (prevState = initialState, action) => {
                 repos: action.repos,
                 loading: false
             }
+        default:
+            break
     }
 }
 
@@ -41,12 +43,13 @@ export const getRepos = () => {
             .then(response => {
                 let repos = []
                 if (response){
-                    response.map(repo => {
+                    response.data.map(repo => {
                         repos.push({
                             name: repo.name,
                             url: repo.html_url,
                             language: repo.language
                         })
+                        return repos
                     })
                 }
                 store.dispatch({

@@ -8,3 +8,14 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+#projectList {
+  padding-top: 10px;
+  width: 100vw;
+  overflow-y: scroll;
+}
+
+#projectList > div {
+  overflow: visible;
+}
+

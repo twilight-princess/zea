@@ -1,47 +1,70 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
 import './Projects.css'
-import { getRepos } from '../../redux'
+import axios from 'axios'
 
 class Projects extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { repos: [{ name: '', url: '', language: '' }] }
-    this.buildRepos = this.buildRepos.bind(this)
+    this.state = { repos: [{ id: 0, name: '', url: '', language: '' }] }
+    this.repoList = this.repoList.bind(this)
   }
 
-  buildRepos = () => {
-    this.setState({repos: getRepos()})
-    console.log(this.state)
+  repoList = () => {
+    axios.get("https://api.github.com/users/twilight-princess/repos")
+      .then(response => {
+        let repos = []
+        if (response) {
+          response.data.map((repo, i) => {
+            if(repo.fork === false && repo.name !== "portfolio") {
+              repos.push({
+                id: i,
+                name: repo.name,
+                description: repo.description,
+                url: repo.html_url,
+                language: repo.language,
+              })
+            }
+            return this.setState({ repos: repos })
+          })
+        }
+      })
+  }
+
+  componentDidMount() {
+    this.repoList();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.repoList)
   }
 
   render() {
-
-    const repoList = () => {
-      this.buildRepos();
-      this.state.repos.map((repo, i) => {
-        console.log(repo.name)
-        return <div key={i}>{repo.name}</div>
+    let projectList;
+    if (this.state.repos) {
+      projectList = this.state.repos.map(r => {
+        return (
+          <div key={r.id} >
+            <div>{r.name}</div>
+            <div>{r.description}</div>
+            <div>Language: {r.language}</div>
+            <a href={r.url} rel="noopener noreferrer" target="_blank">See code in Github</a>
+            <br/>
+            <br/>
+          </div>
+        )
       })
     }
 
+
     return (
       <div className="Projects">
-        {repoList}
+        <div id="projectList">
+        {projectList}
+        </div>
       </div>
     )
   }
 
 };
 
-
-const mapDispatchToProps = dispatch => {
-  return {
-      getRepos: () => {
-          dispatch(getRepos)
-      } 
-  }
-}
-
-export default withRouter(connect(prevState => prevState, mapDispatchToProps)(Projects))
+export default Projects;

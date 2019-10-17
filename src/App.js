@@ -9,6 +9,7 @@ import './App.css'
 import Nav from './Nav/Nav'
 import Home from './Page/Home/Home'
 import About from './Page/About/About'
+import Contact from './Page/Contact/Contact'
 import Projects from './Page/Projects/Projects'
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             renders the first one that matches the current URL. */}
           <Switch>
             <Route path="/about" exact component={About} />
+            <Route path="/contact" exact component={Contact} />
             <Route path="/projects" exact component={Projects} />
             <Route path="/" exact component={Home} />
           </Switch>
