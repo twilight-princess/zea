@@ -13,5 +13,5 @@ ReactDOM.render(<App />, document.getElementById('root'));
 serviceWorker.unregister();
 
 setInterval(() => {
-    http.get("https://lizuxdev.herokuapp.com/");
-}, 6000);
+    http.get("http://lizuxdev.herokuapp.com");
+}, 3600000);
